@@ -4,9 +4,14 @@ import "github.com/gin-gonic/gin"
 
 func main() {
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
+	r.POST("/form_post", func(c *gin.Context) {
+		message := c.PostForm("message")
+		nick := c.DefaultPostForm("nick", "anonymous")
+
 		c.JSON(200, gin.H{
-			"message": "pong",
+			"status":        "posted",
+			"messageGetted": message,
+			"nickGetted":    nick,
 		})
 	})
 	r.Run()
